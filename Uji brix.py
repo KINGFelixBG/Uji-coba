@@ -63,8 +63,8 @@ if st.checkbox("Tampilkan Pengertian Uji Brix"):
     ```
     
     Di mana:
-    - Suhu Referensi biasanya adalah 20 C.
-    - Koreksi per Derajat adalah nilai koreksi yang berbeda tergantung pada refraktometer, umum digunakan 0.03Bx/C.
+    - ("Suhu Referensi biasanya adalah 20 C.")
+    - (Koreksi per Derajat adalah nilai koreksi yang berbeda tergantung pada refraktometer, umum digunakan 0.03Bx/C.
     """)
 
     st.subheader("Alat-Alat yang Digunakan")
