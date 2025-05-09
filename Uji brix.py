@@ -51,9 +51,7 @@ if st.checkbox("Tampilkan Pengertian Uji Brix"):
     st.write("""
     Uji Brix adalah metode pengukuran untuk menentukan kadar zat terlarut, terutama gula, dalam suatu larutan menggunakan refraktometer. 
     
-    
-    Nilai Brix (°Bx) menunjukkan persentase massa gula dalam 100 gram larutan. 
-    Sebagai contoh, larutan dengan nilai 20°Bx artinya mengandung 20 gram gula dalam 100 gram larutan.
+    dalam 100 gram larutan.
     """)
     
     st.subheader("Rumus dan Koreksi Suhu")
