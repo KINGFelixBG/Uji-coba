@@ -43,7 +43,7 @@ Derajat Brix (°Bx) adalah satuan yang menunjukkan jumlah zat padat terlarut, te
 
 Karena indeks bias dipengaruhi oleh suhu, penting untuk melakukan koreksi suhu jika alat tidak memiliki kompensasi suhu otomatis. Rumus koreksi suhu sederhana:
 
-st.markdown("---")
+
 
 Dengan:
 
