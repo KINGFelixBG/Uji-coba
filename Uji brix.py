@@ -59,7 +59,7 @@ if st.checkbox("Tampilkan Pengertian Uji Brix"):
     Rumus perhitungan kadar Brix dengan koreksi suhu adalah:
     
     ```
-    Brix Terkoreksi = Brix Awal + (Suhu - Suhu Referensi) × Koreksi per Derajat
+    Brix Terkoreksi = Brix Awal + (Suhu - Suhu Referensi)*Koreksi per Derajat
     ```
     
     Di mana:
