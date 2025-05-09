@@ -37,69 +37,51 @@ with st.expander("📘 Apa itu Uji Brix?"):
     st.markdown("""
 **Pengertian:**
 
-Derajat Brix (°Bx) adalah satuan yang menunjukkan jumlah zat padat terlarut, terutama gula (sukrosa), dalam 100 gram larutan. Sebagai contoh, larutan dengan 10 °Bx berarti mengandung 10 gram gula dalam setiap 100 gram larutan. Uji Brix digunakan untuk mengukur konsentrasi gula dalam berbagai produk pangan cair seperti jus buah, madu, sirup, dan nira tebu. [Referensi](https://www.saka.co.id/news-detail/pengukuran-brix-dan-indeks-bias-di-lab-komersial-pangan)
+Derajat Brix (°Bx) adalah satuan yang menunjukkan jumlah zat padat terlarut, terutama gula (sukrosa), dalam 100 gram larutan. Sebagai contoh, larutan dengan 10 °Bx berarti mengandung 10 gram gula dalam setiap 100 gram larutan. Uji Brix digunakan untuk mengukur konsentrasi gula dalam berbagai produk pangan cair seperti jus buah, madu, sirup, dan nira tebu.
 
 **Rumus Koreksi Suhu:**
 
 Karena indeks bias dipengaruhi oleh suhu, penting untuk melakukan koreksi suhu jika alat tidak memiliki kompensasi suhu otomatis. Rumus koreksi suhu sederhana:
 
+st.markdown("---")
 
+Dengan:
 
-# Pengertian Uji Brix
-if st.checkbox("Tampilkan Pengertian Uji Brix"):
-    st.subheader("Apa itu Uji Brix?")
-    st.write("""
-    Uji Brix adalah metode pengukuran untuk menentukan kadar zat terlarut, terutama gula, dalam suatu larutan menggunakan refraktometer. 
-    
-    dalam 100 gram larutan.
-    """)
-    
-    st.subheader("Rumus dan Koreksi Suhu")
-    st.write("""
-    Rumus perhitungan kadar Brix dengan koreksi suhu adalah:
-    
-    ```
-    Brix Terkoreksi = Brix Awal + (Suhu - Suhu Referensi)*Koreksi per Derajat
-    ```
-    
-    Di mana:
-    - ("Suhu Referensi biasanya adalah 20 C.")
-    - (Koreksi per Derajat adalah nilai koreksi yang berbeda tergantung pada refraktometer, umum digunakan 0,03Bx/C.
-    """)
+**Brix_awal**: Nilai Brix yang dibaca langsung dari refraktometer.
+**Suhu_sample**: Suhu aktual larutan saat pengukuran.
+**Suhu_referensi**: Suhu standar, biasanya 20°C.
+**Faktor_koreksi**: Nilai koreksi per derajat Celsius, umumnya 0.03 °Bx/°C.
 
-    st.subheader("Alat-Alat yang Digunakan")
-    st.write("""
-    Alat yang biasanya digunakan untuk uji Brix meliputi:
-    - **Refraktometer**: Alat untuk mengukur indeks bias larutan.
-    - **Thermometer**: Untuk mengukur suhu larutan.
-    - **Pipet atau Dropper**: Untuk mengambil sampel larutan.
-    """)
+**Alat yang Digunakan:**
 
-    st.subheader("Cara Melakukan Uji Brix")
-    st.write("""
-    1. Ambil sampel larutan menggunakan pipet.
-    2. Letakkan sampel pada prisma refraktometer.
-    3. Tutup prisma dan arahkan ke sumber cahaya.
-    4. Baca nilai Brix yang ditunjukkan oleh refraktometer.
-    5. Ukur suhu larutan dan lakukan koreksi jika suhu tidak sesuai dengan suhu referensi.
+1. **Refraktometer**: Alat utama untuk mengukur Brix, tersedia dalam bentuk analog dan digital.
+2. **Hidrometer**: Mengukur berat jenis larutan, yang dapat dikonversi ke nilai Brix menggunakan tabel.
+3. **Termometer**: Digunakan untuk mengukur suhu larutan saat pengujian, penting untuk koreksi suhu.
+4. **Piknometer**: Alat laboratorium untuk mengukur massa jenis larutan dengan presisi tinggi.
+
+**Langkah-Langkah Pengukuran:**
+
+1. **Kalibrasi Alat**: Teteskan air suling pada prisma refraktometer untuk memastikan pembacaan menunjukkan 0 °Bx.
+2. **Persiapan Sampel**: Ambil sampel larutan yang akan diuji.
+3. **Pengukuran**: Teteskan sampel pada prisma refraktometer dan baca nilai Brix yang ditunjukkan.
+4. **Koreksi Suhu**: Jika alat tidak memiliki kompensasi suhu otomatis, lakukan koreksi menggunakan rumus yang telah disebutkan.
     """)
 
 st.markdown("---")
 
+# Tombol untuk menghitung koreksi Brix
 if st.button("Hitung Koreksi Brix"):
-    # Koreksi suhu sederhana: setiap kenaikan 1°C di atas 20°C, nilai brix bertambah 0.03°
-    # (Catatan: ini nilai koreksi umum dan dapat disesuaikan berdasarkan alat)
     suhu_referensi = 20.0
-    koreksi_per_derajat = 0.03
+    faktor_koreksi = 0.03
 
     selisih_suhu = suhu - suhu_referensi
-    koreksi = selisih_suhu * koreksi_per_derajat
+    koreksi = selisih_suhu * faktor_koreksi
     brix_terkoreksi = brix_awal + koreksi
 
     st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
-    st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
+    st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {faktor_koreksi}) = {brix_terkoreksi:.2f} °Bx")
 
-    # Penilaian kualitas bahan pangan (contoh kategori)
+    # Penilaian kualitas bahan pangan
     if brix_terkoreksi < 10:
         kualitas = "Rendah (contoh: buah belum matang)"
     elif 10 <= brix_terkoreksi <= 15:
