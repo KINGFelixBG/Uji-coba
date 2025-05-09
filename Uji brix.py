@@ -67,7 +67,7 @@ Dengan:
 4. **Koreksi Suhu**: Jika alat tidak memiliki kompensasi suhu otomatis, lakukan koreksi menggunakan rumus yang telah disebutkan.
     """)
 
-st.markdown("---")
+
 
 # Tombol untuk menghitung koreksi Brix
 if st.button("Hitung Koreksi Brix"):
