@@ -1,23 +1,24 @@
 import streamlit as st
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-# Title
-st.title("😚 Uji Brix pada Bahan Pangan🍕🍟")
+# Judul aplikasi
+st.title("😚 Uji Brix pada Bahan Pangan 🍕🍟")
 
-# Description
+# Deskripsi aplikasi
 st.write("""
 Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
 """)
 
-# Sidebar for input
+# Sidebar untuk input
 with st.sidebar:
     st.header("Input Parameter")
     brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
     suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
     show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
 
-# Apply dark mode
+# Terapkan mode gelap jika dipilih
 if show_dark_mode:
     st.markdown(
         """
@@ -25,10 +26,24 @@ if show_dark_mode:
             body { background-color: #1e1e1e; color: white; }
             .stApp { background-color: #1e1e1e; }
         </style>
-        """, unsafe_allow_html=True
+        """,
+        unsafe_allow_html=True
     )
 
 st.markdown("---")
+
+# Penjelasan tentang uji Brix
+with st.expander("📘 Apa itu Uji Brix?"):
+    st.markdown("""
+**Pengertian:**
+
+Derajat Brix (°Bx) adalah satuan yang menunjukkan jumlah zat padat terlarut, terutama gula (sukrosa), dalam 100 gram larutan. Sebagai contoh, larutan dengan 10 °Bx berarti mengandung 10 gram gula dalam setiap 100 gram larutan. Uji Brix digunakan untuk mengukur konsentrasi gula dalam berbagai produk pangan cair seperti jus buah, madu, sirup, dan nira tebu. [Referensi](https://www.saka.co.id/news-detail/pengukuran-brix-dan-indeks-bias-di-lab-komersial-pangan)
+
+**Rumus Koreksi Suhu:**
+
+Karena indeks bias dipengaruhi oleh suhu, penting untuk melakukan koreksi suhu jika alat tidak memiliki kompensasi suhu otomatis. Rumus koreksi suhu sederhana:
+
+
 
 # Pengertian Uji Brix
 if st.checkbox("Tampilkan Pengertian Uji Brix"):
