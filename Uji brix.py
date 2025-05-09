@@ -1,84 +1,98 @@
-import tkinter as tk
-from tkinter import messagebox
-from tkinter import Toplevel
+import streamlit as st
 
-def hitung_molaritas():
-    try:
-        mol = float(entry_mol.get())
-        volume = float(entry_volume.get())
-        hasil = mol / volume
-        langkah = (
-            f"Langkah-langkah:\n"
-            f"1. Diketahui jumlah mol = {mol} mol, volume larutan = {volume} L.\n"
-            f"2. Gunakan rumus: Molaritas = mol / volume.\n"
-            f"3. Molaritas = {mol} / {volume} = {hasil:.4f} M.\n"
-        )
-        messagebox.showinfo("Hasil", f"Molaritas = {hasil:.4f} M\n\n{langkah}")
-    except ValueError:
-        messagebox.showerror("Error", "Input tidak valid!")
+st.set_page_config(page_title="Uji Brix pada Bahan Pangan", layout="centered")
 
-def hitung_brix():
-    try:
-        massa_larutan = float(entry_massa_larutan.get())
-        massa_zat_terlarut = float(entry_massa_zat_terlarut.get())
-        hasil = (massa_zat_terlarut / massa_larutan) * 100
-        langkah = (
-            f"Langkah-langkah:\n"
-            f"1. Diketahui massa larutan = {massa_larutan} gram, massa zat terlarut = {massa_zat_terlarut} gram.\n"
-            f"2. Gunakan rumus: Brix = (massa zat terlarut / massa larutan) * 100.\n"
-            f"3. Brix = ({massa_zat_terlarut} / {massa_larutan}) * 100 = {hasil:.2f}%.\n"
-        )
-        messagebox.showinfo("Hasil", f"Brix = {hasil:.2f}%\n\n{langkah}")
-    except ValueError:
-        messagebox.showerror("Error", "Input tidak valid!")
+# Title
+st.title("😚 Uji Brix pada Bahan Pangan🍕🍟")
 
-def show_info():
-    info_window = Toplevel(root)
-    info_window.title("Informasi dan Rumus")
-    tk.Label(info_window, text="Pengertian, Rumus, dan Alat-Alat", font=("Arial", 16, "bold")).pack(pady=10)
+# Description
+st.write("""
+Aplikasi ini membantu menghitung kadar Brix dari larutan gula pada bahan pangan, dengan koreksi suhu.
+""")
 
-    text = (
-        "1. Molaritas (M): Jumlah mol zat terlarut per liter larutan.\n"
-        "   Rumus: M = mol / volume (L)\n"
-        "   Alat: Gelas ukur, timbangan.\n\n"
-        "2. Normalitas (N): Jumlah ekuivalen zat terlarut per liter larutan.\n"
-        "   Rumus: N = (mol * valensi) / volume (L)\n"
-        "   Alat: Gelas ukur, timbangan.\n\n"
-        "3. Molalitas (m): Jumlah mol zat terlarut per kilogram pelarut.\n"
-        "   Rumus: m = mol / massa pelarut (kg)\n"
-        "   Alat: Timbangan.\n\n"
-        "4. Brix (%): Konsentrasi gula dalam larutan.\n"
-        "   Rumus: Brix = (massa zat terlarut / massa larutan) * 100\n"
-        "   Alat: Timbangan, refraktometer.\n\n"
+# Sidebar for input
+with st.sidebar:
+    st.header("Input Parameter")
+    brix_awal = st.number_input("Masukkan nilai Brix dari refraktometer (°Bx):", min_value=0.0, max_value=85.0, step=0.1)
+    suhu = st.number_input("Masukkan suhu larutan saat pengukuran (°C):", min_value=0.0, max_value=100.0, step=0.1)
+    show_dark_mode = st.checkbox("Aktifkan Mode Gelap")
+
+# Apply dark mode
+if show_dark_mode:
+    st.markdown(
+        """
+        <style>
+            body { background-color: #1e1e1e; color: white; }
+            .stApp { background-color: #1e1e1e; }
+        </style>
+        """, unsafe_allow_html=True
     )
-    tk.Label(info_window, text=text, justify="left").pack(pady=10)
 
-# GUI setup
-root = tk.Tk()
-root.title("Kalkulator Konsentrasi Kimia")
+st.markdown("---")
 
-# Label dan Entry untuk input
-tk.Label(root, text="Jumlah Mol (mol):").grid(row=0, column=0)
-entry_mol = tk.Entry(root)
-entry_mol.grid(row=0, column=1)
+# Pengertian Uji Brix
+if st.checkbox("Tampilkan Pengertian Uji Brix"):
+    st.subheader("Apa itu Uji Brix?")
+    st.write("""
+    Uji Brix adalah metode pengukuran untuk menentukan kadar zat terlarut, terutama gula, dalam suatu larutan menggunakan refraktometer. 
+    Nilai Brix (°Bx) menunjukkan persentase massa gula dalam 100 gram larutan. 
+    Sebagai contoh, larutan dengan nilai 20°Bx artinya mengandung 20 gram gula dalam 100 gram larutan.
+    """)
+    
+    st.subheader("Rumus dan Koreksi Suhu")
+    st.write("""
+    Rumus perhitungan kadar Brix dengan koreksi suhu adalah:
+    
+    ```
+    Brix Terkoreksi = Brix Awal + (Suhu - Suhu Referensi) × Koreksi per Derajat
+    ```
+    
+    Di mana:
+    - Suhu Referensi biasanya adalah 20°C.
+    - Koreksi per Derajat adalah nilai koreksi yang berbeda tergantung pada refraktometer, umum digunakan 0.03°Bx/°C.
+    """)
 
-tk.Label(root, text="Volume Larutan (L):").grid(row=1, column=0)
-entry_volume = tk.Entry(root)
-entry_volume.grid(row=1, column=1)
+    st.subheader("Alat-Alat yang Digunakan")
+    st.write("""
+    Alat yang biasanya digunakan untuk uji Brix meliputi:
+    - **Refraktometer**: Alat untuk mengukur indeks bias larutan.
+    - **Thermometer**: Untuk mengukur suhu larutan.
+    - **Pipet atau Dropper**: Untuk mengambil sampel larutan.
+    """)
 
-tk.Label(root, text="Massa Larutan (gram):").grid(row=2, column=0)
-entry_massa_larutan = tk.Entry(root)
-entry_massa_larutan.grid(row=2, column=1)
+    st.subheader("Cara Melakukan Uji Brix")
+    st.write("""
+    1. Ambil sampel larutan menggunakan pipet.
+    2. Letakkan sampel pada prisma refraktometer.
+    3. Tutup prisma dan arahkan ke sumber cahaya.
+    4. Baca nilai Brix yang ditunjukkan oleh refraktometer.
+    5. Ukur suhu larutan dan lakukan koreksi jika suhu tidak sesuai dengan suhu referensi.
+    """)
 
-tk.Label(root, text="Massa Zat Terlarut (gram):").grid(row=3, column=0)
-entry_massa_zat_terlarut = tk.Entry(root)
-entry_massa_zat_terlarut.grid(row=3, column=1)
+st.markdown("---")
 
-# Tombol untuk perhitungan
-tk.Button(root, text="Hitung Molaritas", command=hitung_molaritas).grid(row=4, column=0, pady=5)
-tk.Button(root, text="Hitung Brix", command=hitung_brix).grid(row=4, column=1, pady=5)
+if st.button("Hitung Koreksi Brix"):
+    # Koreksi suhu sederhana: setiap kenaikan 1°C di atas 20°C, nilai brix bertambah 0.03°
+    # (Catatan: ini nilai koreksi umum dan dapat disesuaikan berdasarkan alat)
+    suhu_referensi = 20.0
+    koreksi_per_derajat = 0.03
 
-# Tombol untuk informasi
-tk.Button(root, text="Pengertian & Rumus", command=show_info).grid(row=5, column=0, pady=5, columnspan=2)
+    selisih_suhu = suhu - suhu_referensi
+    koreksi = selisih_suhu * koreksi_per_derajat
+    brix_terkoreksi = brix_awal + koreksi
 
-root.mainloop()
+    st.success(f"Nilai Brix Terkoreksi: {brix_terkoreksi:.2f} °Bx")
+    st.caption(f"Perhitungan: {brix_awal:.2f} + ({selisih_suhu:.2f} × {koreksi_per_derajat}) = {brix_terkoreksi:.2f} °Bx")
+
+    # Penilaian kualitas bahan pangan (contoh kategori)
+    if brix_terkoreksi < 10:
+        kualitas = "Rendah (contoh: buah belum matang)"
+    elif 10 <= brix_terkoreksi <= 15:
+        kualitas = "Sedang (standar industri untuk buah segar)"
+    else:
+        kualitas = "Tinggi (madu, sirup, atau buah sangat manis)"
+
+    st.info(f"Kategori Kadar Gula: {kualitas}")
+
+st.markdown("---")
+st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
