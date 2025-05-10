@@ -28,6 +28,7 @@ if choice == "Uji Brix":
     - **Refractometer Handheld**: Alat utama yang digunakan untuk mengukur pembiasan cahaya dalam cairan. 
     - **Termometer** (jika diperlukan): Beberapa refraktometer memerlukan penyesuaian suhu.
 
+    
     ### Cara Menggunakan Alat
     1. Ambil sedikit sampel cairan yang akan diuji.
     2. Letakkan cairan di atas prisma refraktometer.
