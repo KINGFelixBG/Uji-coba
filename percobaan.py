@@ -1,10 +1,9 @@
 import streamlit as st
 
-# Function to calculate Brix
-def calculate_brix(reading, refractometer_constant):
-    # Using a simplified approach for the sake of this example.
-    # Typically, the formula would be more complex, involving temperature correction and empirical constants.
-    brix = reading * refractometer_constant
+# Function to calculate Brix based on the refractive index and constant
+def calculate_brix(n, K):
+    # Applying the formula Brix = (100 * (n - 1)) / K
+    brix = (100 * (n - 1)) / K
     return brix
 
 # Streamlit App
@@ -23,7 +22,7 @@ if choice == "Uji Brix":
 
     ### Rumus Uji Brix
     Rumus perhitungan Brix yang lebih detail berdasarkan pengukuran indeks refraksi adalah:
-    - **Brix = (100 × n - 1) / K**
+    - **Brix = (100 × (n - 1)) / K**
     - Di mana `n` adalah indeks refraksi dan `K` adalah konstanta empiris yang dapat bervariasi tergantung pada suhu dan komposisi larutan.
 
     ### Alat yang Digunakan
@@ -45,28 +44,28 @@ if choice == "Kalkulator Uji Brix":
     st.header("Kalkulator Uji Brix")
 
     # Input dari pengguna
-    reading = st.number_input("Masukkan pembacaan refraktometer (nilai Brix):", min_value=0.0, step=0.1)
-    refractometer_constant = st.number_input("Masukkan konstanta refraktometer:", min_value=1.0, step=0.01)
+    refractive_index = st.number_input("Masukkan nilai indeks refraksi (n) dari refraktometer:", min_value=1.0, step=0.0001)
+    constant_K = st.number_input("Masukkan konstanta empiris (K) yang sesuai untuk larutan:", min_value=1.0, step=0.01)
 
     # Kalkulasi Brix
     if st.button("Hitung Brix"):
-        if reading > 0 and refractometer_constant > 0:
-            brix = calculate_brix(reading, refractometer_constant)
-            st.write(f"Brix yang dihitung adalah: {brix:.2f}")
+        if refractive_index > 1.0 and constant_K > 0:
+            brix = calculate_brix(refractive_index, constant_K)
+            st.write(f"Brix yang dihitung adalah: {brix:.2f} %")
 
             # Penjelasan cara penyelesaian dan alasan
             st.subheader("Cara Penyelesaian:")
-            st.write(f"1. Pembacaan refraktometer adalah {reading}.")
-            st.write(f"2. Konstanta refraktometer yang digunakan adalah {refractometer_constant}.")
-            st.write(f"3. Menggunakan rumus Brix = (Pembacaan refraktometer) x Konstanta refraktometer.")
-            st.write(f"4. Brix yang dihitung adalah: {brix:.2f}.")
+            st.write(f"1. Pembacaan refraktometer menghasilkan nilai indeks refraksi: {refractive_index}.")
+            st.write(f"2. Konstanta empiris yang digunakan untuk cairan ini adalah {constant_K}.")
+            st.write(f"3. Menggunakan rumus Brix = (100 × (n - 1)) / K.")
+            st.write(f"4. Dengan memasukkan nilai-nilai tersebut, kita menghitung Brix: {brix:.2f} %.")
 
             # Penjelasan alasan dan keterangan
             st.subheader("Alasan dan Keterangan:")
             st.write("""
             - **Brix** adalah pengukuran yang digunakan untuk menentukan persentase total padatan terlarut dalam cairan, terutama untuk kandungan gula.
-            - Hasil pengukuran ini sangat berguna dalam industri makanan dan minuman, terutama untuk mengontrol kualitas produk dan memastikan konsistensi rasa.
-            - Pembacaan yang tepat pada refraktometer sangat penting untuk mendapatkan hasil yang akurat. Kesalahan dalam pengambilan sampel atau suhu cairan dapat memengaruhi hasil perhitungan.
+            - Menggunakan rumus di atas, kita dapat menghitung nilai Brix dengan mengukur indeks refraksi cairan dan memasukkan konstanta empiris yang sesuai.
+            - Pembacaan yang tepat pada refraktometer sangat penting untuk mendapatkan hasil yang akurat. Jika cairan terlalu panas atau terlalu dingin, koreksi suhu mungkin diperlukan.
             """)
         else:
-            st.warning("Mohon masukkan nilai yang valid untuk pembacaan dan konstanta refraktometer.")
+            st.warning("Mohon masukkan nilai yang valid untuk indeks refraksi dan konstanta empiris.")
