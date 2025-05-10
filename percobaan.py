@@ -2,6 +2,8 @@ import streamlit as st
 
 # Function to calculate Brix
 def calculate_brix(reading, refractometer_constant):
+    # Using a simplified approach for the sake of this example.
+    # Typically, the formula would be more complex, involving temperature correction and empirical constants.
     brix = reading * refractometer_constant
     return brix
 
@@ -20,15 +22,14 @@ if choice == "Uji Brix":
     Pengukuran ini dilakukan menggunakan alat yang disebut **refraktometer**, yang mengukur pembiasan cahaya yang terjadi ketika cahaya melewati cairan yang diuji.
 
     ### Rumus Uji Brix
-    Rumus perhitungan Brix adalah:
-    - **Brix = (Panjang gelombang cahaya yang dibiaskan) x Konstanta refraktometer**
-    - Pada dasarnya, Brix mengindikasikan persen berat padatan terlarut dalam cairan tersebut (terutama gula).
+    Rumus perhitungan Brix yang lebih detail berdasarkan pengukuran indeks refraksi adalah:
+    - **Brix = (100 × n - 1) / K**
+    - Di mana `n` adalah indeks refraksi dan `K` adalah konstanta empiris yang dapat bervariasi tergantung pada suhu dan komposisi larutan.
 
     ### Alat yang Digunakan
-    - **Refractometer Handheld**: Alat utama yang digunakan untuk mengukur pembiasan cahaya dalam cairan. 
-    - **Termometer** (jika diperlukan): Beberapa refraktometer memerlukan penyesuaian suhu.
+    - **Refractometer Handheld**: Alat utama yang digunakan untuk mengukur pembiasan cahaya dalam cairan.
+    - **Termometer** (jika diperlukan): Beberapa refraktometer memerlukan penyesuaian suhu agar perhitungan Brix lebih akurat.
 
-    
     ### Cara Menggunakan Alat
     1. Ambil sedikit sampel cairan yang akan diuji.
     2. Letakkan cairan di atas prisma refraktometer.
