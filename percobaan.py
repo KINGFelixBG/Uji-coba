@@ -117,19 +117,3 @@ if choice == "Kalkulator Uji Brix":
             st.warning("Mohon masukkan nilai yang valid untuk indeks refraksi dan konstanta empiris.")
 import streamlit as st
 
-# CSS untuk latar belakang gradien
-page_bg_css = """
-<style>
-[data-testid="stAppViewContainer"] > .main {
-    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-[data-testid="stHeader"] {
-    background: rgba(0,0,0,0);
-}
-</style>
-"""
-
-st.markdown(page_bg_css, unsafe_allow_html=True)
