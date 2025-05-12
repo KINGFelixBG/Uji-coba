@@ -23,7 +23,7 @@ if show_dark_mode:
     st.markdown(
         """
         <style>
-            body { background-color: #1e1e1e; color: white; }
+            body { background-color: #1e1e1e; color: red; }
             .stApp { background-color: #1e1e1e; }
         </style>
         """,
@@ -93,68 +93,3 @@ if st.button("Hitung Koreksi Brix"):
 
 st.markdown("---")
 st.caption("📘 Dibuat dengan Streamlit untuk edukasi uji Brix pada pangan.")
-
-def koreksi_suhu(brix_awal, suhu, suhu_referensi=20.0, faktor_koreksi=0.03):
-    selisih_suhu = suhu - suhu_referensi
-    koreksi = selisih_suhu * faktor_koreksi
-    return brix_awal + koreksi
-
-def konversi_brix_ke_sg(brix):
-    return 1.000019 + (0.003865613 * brix) + (0.00001296425 * brix**2) + (0.00000005701128 * brix**3)
-
-def hitung_abv(og, fg):
-    return (og - fg) * 131.25
-
-def koreksi_alkohol(brix_awal, abv):
-    return brix_awal - (0.02 * abv)
-
-def estimasi_tds(sg, brix):
-    return sg * (brix * 10)
-
-def hitung_densitas(sg):
-    return sg * 1000  # Densitas dalam g/L
-
-def hitung_kandungan_gula(brix, sg):
-    return brix * sg * 10  # Kandungan gula dalam g/L
-
-# Input dari pengguna
-brix_awal = float(input("Masukkan nilai Brix awal (°Bx): "))
-suhu = float(input("Masukkan suhu larutan (°C): "))
-og = float(input("Masukkan Original Gravity (SG): "))
-fg = float(input("Masukkan Final Gravity (SG): "))
-
-# Koreksi suhu
-brix_terkoreksi = koreksi_suhu(brix_awal, suhu)
-
-# Konversi Brix ke SG
-sg = konversi_brix_ke_sg(brix_terkoreksi)
-
-# Hitung ABV
-abv = hitung_abv(og, fg)
-
-# Koreksi untuk alkohol
-brix_akhir = koreksi_alkohol(brix_terkoreksi, abv)
-
-# Estimasi TDS
-tds = estimasi_tds(sg, brix_akhir)
-
-# Hitung Densitas
-densitas = hitung_densitas(sg)
-
-# Hitung Kandungan Gula
-kandungan_gula = hitung_kandungan_gula(brix_akhir, sg)
-
-# Output dengan penjelasan
-print(f"\nHasil Perhitungan:")
-print(f"Brix terkoreksi: {brix_akhir:.2f} °Bx")
-print("→ Menunjukkan konsentrasi gula setelah koreksi suhu dan alkohol.")
-print(f"Specific Gravity: {sg:.3f}")
-print("→ Rasio densitas larutan terhadap air murni.")
-print(f"Potensial Alkohol (ABV): {abv:.2f}%")
-print("→ Estimasi kadar alkohol berdasarkan OG dan FG.")
-print(f"Estimasi Total Padatan Terlarut (TDS): {tds:.2f} g/L")
-print("→ Total zat terlarut dalam larutan.")
-print(f"Densitas Larutan: {densitas:.2f} g/L")
-print("→ Massa per liter larutan.")
-print(f"Kandungan Gula: {kandungan_gula:.2f} g/L")
-print("→ Estimasi jumlah gula dalam larutan.")
