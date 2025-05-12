@@ -31,6 +31,12 @@ if show_dark_mode:
     )
 
 st.markdown("---")
+[theme]
+primaryColor = "#FF4B4B"
+backgroundColor = "#F0F8FF"
+secondaryBackgroundColor = "#E6F0FA"
+textColor = "#000000"
+font = "sans serif"
 
 # Penjelasan tentang uji Brix
 with st.expander("📘 Apa itu Uji Brix?"):
